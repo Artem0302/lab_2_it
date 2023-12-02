@@ -1,9 +1,92 @@
 import {StyleSheet} from 'react-native';
+import {FONTS} from '@shared/constants/theme';
 
 export default StyleSheet.create({
+  wrapper: {
+    flex: 1,
+  },
+  status_bar: {
+    width: '100%',
+    backgroundColor: 'rgba(255, 227, 252, 0.46)',
+    position: 'absolute',
+    zIndex: 2,
+  },
   container: {
     flex: 1,
+  },
+  rectangle_top: {
+    position: 'absolute',
+    zIndex: 1,
+    backgroundColor: '#FF79F2',
+    width: 331,
+    height: 221,
+    transform: [{rotate: '-49deg'}],
+    borderRadius: 30,
+    left: -46,
+    top: -29,
+  },
+  rectangle_middle: {
+    position: 'absolute',
+    zIndex: 1,
+    backgroundColor: '#FFFDC6',
+    width: 331,
+    height: 221,
+    transform: [{rotate: '41deg'}],
+    borderRadius: 30,
+    right: -148.946,
+    bottom: 185,
+  },
+  rectangle_bottom: {
+    position: 'absolute',
+    zIndex: 1,
+    backgroundColor: '#FF79F2',
+    width: 331,
+    height: 221,
+    transform: [{rotate: '-49deg'}],
+    borderRadius: 30,
+    left: -119,
+    bottom: -12.798,
+  },
+  body: {
+    flex: 1,
+    zIndex: 2,
     alignItems: 'center',
-    backgroundColor: '#FFE3FC',
+    justifyContent: 'center',
+  },
+  btn_text: {
+    color: '#FFE3FC',
+    fontSize: 36,
+    fontFamily: FONTS.fontInterExtraBoldItalic,
+  },
+  button_buy: {
+    marginTop: 56,
+    backgroundColor: 'rgba(251, 150, 241, 1)',
+    height: 83,
+    width: 240,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 60,
+  },
+  rat_buy: {
+    position: 'absolute',
+    zIndex: 3,
+    top: -30.5,
+    right: 20,
+  },
+  button_sell: {
+    marginTop: 18,
+    backgroundColor: 'rgba(251, 150, 241, 1)',
+    height: 83,
+    width: 240,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 60,
+  },
+  rat_sell: {
+    position: 'absolute',
+    zIndex: 3,
+    bottom: -12,
+    left: 30,
+    transform: [{scaleX: -1}],
   },
 });

@@ -14,6 +14,10 @@
       "sha1": "c9b3d2f2449ab2c67ff075f806973fa3d7e104b3"
     },
     {
+      "path": "src/shared/assets/fonts/Inter-ExtraBoldItalic.ttf",
+      "sha1": "eb61a79464de3932a2d892bf50ad0270be5791e2"
+    },
+    {
       "path": "src/shared/assets/fonts/Inter-ExtraLight.ttf",
       "sha1": "f78ee1d6cbfc64f656247c604ef270ef116abbf5"
     },

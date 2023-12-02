@@ -8,4 +8,5 @@ export const FONTS = {
   fontInterRegular: 'Inter-Regular',
   fontInterSemiBold: 'Inter-SemiBold',
   fontInterThin: 'Inter-Thin',
+  fontInterExtraBoldItalic: 'Inter-ExtraBoldItalic',
 };
