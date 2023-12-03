@@ -12,6 +12,7 @@ export type TMainNavigatorParamsList = {
     description: string;
     phone: string;
   };
+  'MAIN.RESULT_SCREEN': undefined;
 };
 
 export type TWelcomeScreenScreenType = StackScreenProps<
@@ -29,4 +30,8 @@ export type TSellScreenScreenType = StackScreenProps<
 export type TPreviewScreenScreenType = StackScreenProps<
   TMainNavigatorParamsList,
   'MAIN.PREVIEW_SCREEN'
+>;
+export type TResultScreenScreenType = StackScreenProps<
+  TMainNavigatorParamsList,
+  'MAIN.RESULT_SCREEN'
 >;

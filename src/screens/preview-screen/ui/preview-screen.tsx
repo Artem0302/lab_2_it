@@ -86,7 +86,10 @@ export function PreviewScreen() {
             </TouchableOpacity>
           </View>
           <View style={styles.footer}>
-            <RatButton onPress={() => console.log('hello')} text={'Push'} />
+            <RatButton
+              onPress={() => navigation.navigate('MAIN.RESULT_SCREEN')}
+              text={'Push'}
+            />
           </View>
         </View>
       </ScrollView>

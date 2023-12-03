@@ -1,6 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import {BuyScreen} from '@screens/buy-screen';
 import {PreviewScreen} from '@screens/preview-screen';
+import {ResultScreen} from '@screens/result-screen';
 import {SellScreen} from '@screens/sell-screen';
 import {WelcomeScreen} from '@screens/welcome-screen';
 import React from 'react';
@@ -19,6 +20,7 @@ export function MainNavigator() {
       <Main.Screen name="MAIN.BUY_SCREEN" component={BuyScreen} />
       <Main.Screen name="MAIN.SELL_SCREEN" component={SellScreen} />
       <Main.Screen name="MAIN.PREVIEW_SCREEN" component={PreviewScreen} />
+      <Main.Screen name="MAIN.RESULT_SCREEN" component={ResultScreen} />
     </Main.Navigator>
   );
 }
