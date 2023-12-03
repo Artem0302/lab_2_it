@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {FONTS} from '@shared/constants/theme';
 
 export default StyleSheet.create({
   wrapper: {
@@ -12,5 +13,14 @@ export default StyleSheet.create({
   },
   container: {
     flex: 1,
+  },
+  back_btn: {
+    margin: 15,
+  },
+  title: {
+    fontFamily: FONTS.fontInterExtraBoldItalic,
+    color: '#FF56E4',
+    fontSize: 28,
+    textAlign: 'center',
   },
 });
