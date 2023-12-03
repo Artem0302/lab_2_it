@@ -1,15 +1,23 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Platform, StatusBar, Text, TouchableOpacity, View} from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {FONTS} from '@shared/constants/theme';
+import {TWelcomeScreenScreenType} from '@shared/types';
 import {GradientText} from '@shared/ui';
 import RatIconLeft from './assets/rat-icon-left.svg';
 import styles from './welcome-screen.styles';
 
+type TWelcomeScreenNavProp = TWelcomeScreenScreenType['navigation'];
+
 export function WelcomeScreen() {
+  const navigation = useNavigation<TWelcomeScreenNavProp>();
   const insets = useSafeAreaInsets();
+
+  const onBuyHandler = () => navigation.navigate('MAIN.BUY_SCREEN');
+  const onSellHandler = () => navigation.navigate('MAIN.SELL_SCREEN');
 
   return (
     <View style={styles.wrapper}>
@@ -34,11 +42,11 @@ export function WelcomeScreen() {
             fontFamily={FONTS.fontInterExtraBoldItalic}>
             Rat shop
           </GradientText>
-          <TouchableOpacity style={styles.button_buy}>
+          <TouchableOpacity style={styles.button_buy} onPress={onBuyHandler}>
             <RatIconLeft style={styles.rat_buy} />
             <Text style={styles.btn_text}>Buy</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button_sell}>
+          <TouchableOpacity style={styles.button_sell} onPress={onSellHandler}>
             <RatIconLeft style={styles.rat_sell} />
             <Text style={styles.btn_text}>Sell</Text>
           </TouchableOpacity>

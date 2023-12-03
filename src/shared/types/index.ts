@@ -1,1 +1,6 @@
-export type {TMainNavigatorParamsList} from './navigation.types';
+export type {
+  TMainNavigatorParamsList,
+  TWelcomeScreenScreenType,
+  TSellScreenScreenType,
+  TBuyScreenScreenType,
+} from './navigation.types';

@@ -1,4 +1,6 @@
 import {createStackNavigator} from '@react-navigation/stack';
+import {BuyScreen} from '@screens/buy-screen';
+import {SellScreen} from '@screens/sell-screen';
 import {WelcomeScreen} from '@screens/welcome-screen';
 import React from 'react';
 
@@ -13,6 +15,8 @@ export function MainNavigator() {
       screenOptions={DISABLED_HEADER_STYLE_CONFIG}
       initialRouteName={'MAIN.WELCOME_SCREEN'}>
       <Main.Screen name="MAIN.WELCOME_SCREEN" component={WelcomeScreen} />
+      <Main.Screen name="MAIN.BUY_SCREEN" component={BuyScreen} />
+      <Main.Screen name="MAIN.SELL_SCREEN" component={SellScreen} />
     </Main.Navigator>
   );
 }
