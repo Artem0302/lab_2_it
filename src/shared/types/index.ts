@@ -3,4 +3,5 @@ export type {
   TWelcomeScreenScreenType,
   TSellScreenScreenType,
   TBuyScreenScreenType,
+  TPreviewScreenScreenType,
 } from './navigation.types';
