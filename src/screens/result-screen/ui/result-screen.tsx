@@ -1,4 +1,4 @@
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {Platform, StatusBar, View} from 'react-native';
 
@@ -10,9 +10,14 @@ import {GradientText, RatButton} from '@shared/ui';
 import styles from './result-screen.styles';
 
 type TResultScreenNavProp = TResultScreenScreenType['navigation'];
+type TResultScreenRouteProp = TResultScreenScreenType['route'];
 
 export function ResultScreen() {
   const navigation = useNavigation<TResultScreenNavProp>();
+  const route = useRoute<TResultScreenRouteProp>();
+
+  const {mode} = route.params;
+
   const insets = useSafeAreaInsets();
 
   return (
@@ -33,7 +38,9 @@ export function ResultScreen() {
           size={26}
           fontFamily={FONTS.fontInterExtraBoldItalic}
           style={styles.text}>
-          Congratulation! The ad will be up for sale soon!
+          {mode === 'sell'
+            ? 'Congratulation! The ad will be up for sale soon!'
+            : 'Congratulation! You successfully bought a new friend!'}
         </GradientText>
         <RatButton
           onPress={() => navigation.navigate('MAIN.WELCOME_SCREEN')}

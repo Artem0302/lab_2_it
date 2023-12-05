@@ -8,28 +8,53 @@ import {
   View,
 } from 'react-native';
 
-import {TBuyScreenScreenType} from '@shared/types';
+import {TBuyScreenScreenType, TRat} from '@shared/types';
+import RatLeft from './assets/rat-icon-left.svg';
 import styles from './rat-slot.styles';
 
 type TBuyScreenNavProp = TBuyScreenScreenType['navigation'];
 
 interface IRatSlot {
-  age: string;
-  name: string;
-  price: string;
   image: ImageSourcePropType;
+  info: TRat;
 }
 
-export function RatSlot({age, name, price, image}: IRatSlot) {
+export function RatSlot({info, image}: IRatSlot) {
   const navigation = useNavigation<TBuyScreenNavProp>();
+
+  const {age, name, price, gender, description, phone} = info;
+
+  const onBuyHandler = () =>
+    navigation.navigate('MAIN.PREVIEW_SCREEN', {
+      age,
+      name,
+      price,
+      gender,
+      description,
+      phone,
+      mode: 'buy',
+    });
 
   return (
     <View style={styles.wrapper}>
-      <Image source={image} style={styles.image} />
+      <View>
+        <View
+          style={[
+            styles.rat_circle,
+            {backgroundColor: gender === 'male' ? '#D4EDEF' : '#FFE3FC'},
+            gender !== 'male' && {
+              borderWidth: 1,
+              borderColor: '#FB96F1',
+            },
+          ]}
+        />
+        <RatLeft style={styles.rat} />
+        <Image source={image} style={styles.image} />
+      </View>
       <Text style={styles.text_name}>{name}</Text>
       <View style={styles.footer}>
         <Text style={styles.text_age}>{age}</Text>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity onPress={onBuyHandler} style={styles.button}>
           <Text style={styles.price}>{price}</Text>
         </TouchableOpacity>
       </View>

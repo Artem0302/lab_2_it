@@ -5,4 +5,5 @@ export type {
   TBuyScreenScreenType,
   TPreviewScreenScreenType,
   TResultScreenScreenType,
+  TRat,
 } from './navigation.types';

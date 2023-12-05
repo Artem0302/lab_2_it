@@ -11,8 +11,21 @@ export type TMainNavigatorParamsList = {
     gender: string;
     description: string;
     phone: string;
+    photoUri: string;
+    mode: 'buy' | 'sell';
   };
-  'MAIN.RESULT_SCREEN': undefined;
+  'MAIN.RESULT_SCREEN': {
+    mode: 'buy' | 'sell';
+  };
+};
+
+export type TRat = {
+  name: string;
+  price: string;
+  age: string;
+  gender: string;
+  description: string;
+  phone: string;
 };
 
 export type TWelcomeScreenScreenType = StackScreenProps<

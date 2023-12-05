@@ -15,12 +15,16 @@ export default StyleSheet.create({
     flex: 1,
   },
   back_btn: {
-    margin: 15,
+    marginVertical: 15,
   },
   title: {
     fontFamily: FONTS.fontInterExtraBoldItalic,
     color: '#FF56E4',
     fontSize: 28,
     textAlign: 'center',
+  },
+  flatlist: {
+    paddingHorizontal: 16,
+    paddingBottom: 30,
   },
 });

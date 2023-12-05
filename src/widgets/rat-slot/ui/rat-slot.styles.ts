@@ -6,6 +6,22 @@ export default StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 1)',
     paddingHorizontal: 16,
     paddingVertical: 14,
+    marginTop: 30,
+  },
+  rat_circle: {
+    borderRadius: 40,
+    position: 'absolute',
+    width: 66,
+    height: 66,
+    zIndex: 0,
+    top: -40,
+    right: -17,
+  },
+  rat: {
+    position: 'absolute',
+    zIndex: 3,
+    top: -30,
+    right: -5,
   },
   image: {
     resizeMode: 'contain',

@@ -34,9 +34,10 @@ export default StyleSheet.create({
     position: 'absolute',
     zIndex: 3,
     top: -12,
-    right: -10,
+    right: 0,
   },
   image: {
+    marginVertical: 20,
     width: '100%',
     height: 230,
   },

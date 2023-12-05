@@ -26,7 +26,8 @@ export function PreviewScreen() {
   const route = useRoute<TPreviewScreenRouteProp>();
   const insets = useSafeAreaInsets();
 
-  const {name, gender, price, age, description, phone} = route.params;
+  const {name, gender, price, age, photoUri, description, phone, mode} =
+    route.params;
 
   const goBack = () => navigation.goBack();
 
@@ -34,6 +35,7 @@ export function PreviewScreen() {
     <SafeAreaView style={styles.wrapper}>
       <StatusBar barStyle={'dark-content'} backgroundColor="white" />
       <ScrollView
+        showsVerticalScrollIndicator={false}
         style={[styles.container, {paddingTop: insets.top}]}
         contentContainerStyle={{paddingBottom: 50}}>
         <TouchableOpacity
@@ -44,7 +46,7 @@ export function PreviewScreen() {
         </TouchableOpacity>
         <View style={styles.body}>
           <Text style={styles.name_text}>{name}</Text>
-          <View>
+          <View style={{alignItems: 'center'}}>
             <View
               style={[
                 styles.rat_circle,
@@ -59,7 +61,7 @@ export function PreviewScreen() {
             <Image
               style={styles.image}
               resizeMode={'contain'}
-              source={require('./assets/rat_image.png')}
+              source={{uri: photoUri}}
             />
           </View>
           <View style={styles.info_wrapper}>
@@ -87,8 +89,8 @@ export function PreviewScreen() {
           </View>
           <View style={styles.footer}>
             <RatButton
-              onPress={() => navigation.navigate('MAIN.RESULT_SCREEN')}
-              text={'Push'}
+              onPress={() => navigation.navigate('MAIN.RESULT_SCREEN', {mode})}
+              text={mode === 'sell' ? 'Push' : 'Buy now'}
             />
           </View>
         </View>

@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {TSellScreenScreenType} from '@shared/types';
@@ -31,10 +32,12 @@ export function SellScreen() {
   const [phone, setPhone] = useState('');
   const [description, setDescription] = useState('');
 
+  const [photoUri, setPhotoUri] = useState(undefined);
+
   const goBack = () => navigation.goBack();
 
   const onPreviewHandler = () => {
-    if (phone && description && age && name && price && gender) {
+    if (phone && description && age && name && price && gender && photoUri) {
       navigation.navigate('MAIN.PREVIEW_SCREEN', {
         description,
         phone,
@@ -42,7 +45,43 @@ export function SellScreen() {
         name,
         price,
         gender,
+        photoUri,
+        mode: 'sell',
       });
+    } else {
+      Alert.alert('You should fill in all fields');
+    }
+  };
+
+  const openImagePicker = async () => {
+    const options = {
+      mediaType: 'photo',
+      includeBase64: false,
+    };
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    await launchImageLibrary(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+      } else if (response.error) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        console.log('Image picker error: ', response.error);
+      } else {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const imageUri = response.uri || response.assets?.[0]?.uri;
+        setPhotoUri(imageUri);
+      }
+    });
+  };
+
+  const onPublishHandler = () => {
+    if (phone && description && age && name && price && gender) {
+      navigation.navigate('MAIN.RESULT_SCREEN', {mode: 'sell'});
     } else {
       Alert.alert('You should fill in all fields');
     }
@@ -106,7 +145,7 @@ export function SellScreen() {
             <Text style={styles.currency}>UAH</Text>
           </View>
           <Text style={styles.title}>Add photos</Text>
-          <TouchableOpacity style={styles.photo_btn}>
+          <TouchableOpacity onPress={openImagePicker} style={styles.photo_btn}>
             <PlusIcon />
           </TouchableOpacity>
           <Text style={styles.title}>Contact phone number</Text>
@@ -128,7 +167,7 @@ export function SellScreen() {
               style={styles.preview_btn}>
               <Text style={styles.preview_text}>Preview</Text>
             </TouchableOpacity>
-            <RatButton onPress={() => console.log('hello')} text={'Publish'} />
+            <RatButton onPress={onPublishHandler} text={'Publish'} />
           </View>
         </View>
       </ScrollView>
