@@ -1,4 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
 import React, {useState} from 'react';
 import {
   Alert,
@@ -14,7 +15,7 @@ import {launchImageLibrary} from 'react-native-image-picker';
 
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {TSellScreenScreenType} from '@shared/types';
-import {RatButton} from '@shared/ui';
+import {LoadingModal, RatButton} from '@shared/ui';
 import LeftArrow from './assets/left-arrow.svg';
 import PlusIcon from './assets/plus-icon.svg';
 import styles from './sell-screen.styles';
@@ -25,6 +26,7 @@ export function SellScreen() {
   const navigation = useNavigation<TSellScreenNavProp>();
   const insets = useSafeAreaInsets();
   const [gender, setGender] = useState('');
+  const [loaderVisible, setLoaderVisible] = useState<boolean>(false);
 
   const [price, setPrice] = useState('');
   const [name, setName] = useState('');
@@ -41,7 +43,7 @@ export function SellScreen() {
       navigation.navigate('MAIN.PREVIEW_SCREEN', {
         description,
         phone,
-        age,
+        age_months: age,
         name,
         price,
         gender,
@@ -79,9 +81,51 @@ export function SellScreen() {
     });
   };
 
+  const sendRat = async () => {
+    const url = 'https://rats.anywhere.cyou/rats/';
+
+    const body = {
+      name: name,
+      age_months: Number(age),
+      gender: gender === 'female' ? 'f' : 'm',
+      price: Number(price),
+      phone: phone,
+      description: description,
+    };
+
+    return await axios.post(url, body);
+  };
+
+  const sendImage = async (ratId: string) => {
+    const url = `https://rats.anywhere.cyou/rats/${ratId}/`;
+
+    const formData = new FormData();
+    formData.append('image', {
+      name: 'ratImage',
+      uri: photoUri,
+      type: 'image/jpeg',
+    });
+
+    return axios.patch(url, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  };
+
   const onPublishHandler = () => {
     if (phone && description && age && name && price && gender) {
-      navigation.navigate('MAIN.RESULT_SCREEN', {mode: 'sell'});
+      setLoaderVisible(true);
+      sendRat()
+        .then(response => {
+          sendImage(response.data.id)
+            .then(() => {
+              setLoaderVisible(false);
+              navigation.navigate('MAIN.RESULT_SCREEN', {mode: 'sell'});
+            })
+            .catch(error => console.log(error));
+        })
+        .catch(() => Alert.alert('Not valid data!'));
     } else {
       Alert.alert('You should fill in all fields');
     }
@@ -94,6 +138,7 @@ export function SellScreen() {
         translucent
         backgroundColor="rgba(255, 255, 255, 0.46)"
       />
+      <LoadingModal visible={loaderVisible} />
       {Platform.OS === 'ios' && (
         <View style={[styles.status_bar, {height: insets.top}]} />
       )}
@@ -112,8 +157,9 @@ export function SellScreen() {
         <View style={styles.body}>
           <Text style={styles.title}>Present your rat</Text>
           <TextInput value={name} onChangeText={setName} style={styles.input} />
-          <Text style={styles.title}>Set age</Text>
+          <Text style={styles.title}>Set age ( number of months )</Text>
           <TextInput
+            keyboardType={'numeric'}
             value={age}
             onChangeText={setAge}
             style={[styles.input, {width: 150}]}
@@ -139,6 +185,7 @@ export function SellScreen() {
           <View style={styles.price_wrapper}>
             <TextInput
               value={price}
+              keyboardType={'numeric'}
               onChangeText={setPrice}
               style={[styles.input, {width: 200, marginTop: 0}]}
             />

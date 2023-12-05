@@ -7,12 +7,13 @@ export type TMainNavigatorParamsList = {
   'MAIN.PREVIEW_SCREEN': {
     name: string;
     price: string;
-    age: string;
+    age_months: string;
     gender: string;
     description: string;
     phone: string;
-    photoUri: string;
     mode: 'buy' | 'sell';
+    photoUri?: string;
+    id?: string;
   };
   'MAIN.RESULT_SCREEN': {
     mode: 'buy' | 'sell';
@@ -22,10 +23,11 @@ export type TMainNavigatorParamsList = {
 export type TRat = {
   name: string;
   price: string;
-  age: string;
+  age_months: string;
   gender: string;
   description: string;
   phone: string;
+  id: string;
 };
 
 export type TWelcomeScreenScreenType = StackScreenProps<
