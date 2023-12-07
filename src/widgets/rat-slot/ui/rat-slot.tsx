@@ -49,7 +49,7 @@ export function RatSlot({info, image}: IRatSlot) {
       </View>
       <Text style={styles.text_name}>{name}</Text>
       <View style={styles.footer}>
-        <Text style={styles.text_age}>{age_months}</Text>
+        <Text style={styles.text_age}>{age_months} month`s</Text>
         <TouchableOpacity onPress={onBuyHandler} style={styles.button}>
           <Text style={styles.price}>{price}</Text>
         </TouchableOpacity>

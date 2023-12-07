@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:AppCenter-Config.plist">
+   </FileRef>
+   <FileRef
       location = "group:lab_2_it.xcodeproj">
    </FileRef>
    <FileRef

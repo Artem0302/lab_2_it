@@ -163,7 +163,7 @@ export function PreviewScreen() {
           <View style={styles.footer}>
             <RatButton
               onPress={nextButtonHandler}
-              text={mode === 'sell' ? 'Push' : 'Buy now'}
+              text={mode === 'sell' ? 'Publish' : 'Buy now'}
             />
           </View>
         </View>
