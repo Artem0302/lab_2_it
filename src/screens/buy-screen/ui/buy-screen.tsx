@@ -1,5 +1,5 @@
+import {gql, useQuery} from '@apollo/client';
 import {useNavigation} from '@react-navigation/native';
-import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {FlatList, StatusBar, Text, TouchableOpacity, View} from 'react-native';
 
@@ -13,46 +13,58 @@ import styles from './buy-screen.styles';
 
 type TBuyScreenNavProp = TBuyScreenScreenType['navigation'];
 
+const GET_RATS = gql`
+  query GetRats {
+    rats {
+      id
+      name
+      ageMonths
+      gender
+      price
+      phone
+      description
+      image
+    }
+  }
+`;
+
 export function BuyScreen() {
   const navigation = useNavigation<TBuyScreenNavProp>();
   const insets = useSafeAreaInsets();
-  const [data, setData] = useState([]);
   const [loaderVisible, setLoaderVisible] = useState<boolean>(true);
+  const {data, loading, error} = useQuery(GET_RATS);
+  const [localData, setLocalData] = useState([]);
 
   const goBack = () => navigation.goBack();
 
-  const requestData = async () => {
-    const url = 'https://rats.anywhere.cyou/rats/';
-
-    return await axios.get(url, {});
-  };
+  useEffect(() => {
+    setLoaderVisible(loading);
+  }, [loading]);
 
   useEffect(() => {
-    requestData()
-      .then(response => {
-        setData(response.data);
-        setLoaderVisible(false);
-      })
-      .catch(error => console.log(error))
-      .finally(() => setLoaderVisible(false));
-  }, []);
+    if (data !== undefined) {
+      setLocalData(data);
+    }
+  }, [data]);
 
-  const renderItem = ({item}: {item: TRat}) => (
-    <RatSlot
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      image={item.image_url}
-      info={{
-        age_months: item.age_months,
-        name: item.name,
-        price: item.price,
-        gender: item.gender === 'f' ? 'female' : 'male',
-        phone: item.phone,
-        description: item.description,
-        id: item.id,
-      }}
-    />
-  );
+  const renderItem = ({item}: {item: TRat}) => {
+    return (
+      <RatSlot
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        image={item.image}
+        info={{
+          age_months: item.ageMonths,
+          name: item.name,
+          price: item.price,
+          gender: item.gender === 'f' ? 'female' : 'male',
+          phone: item.phone,
+          description: item.description,
+          id: item.id,
+        }}
+      />
+    );
+  };
 
   return (
     <View style={styles.wrapper}>
@@ -65,7 +77,7 @@ export function BuyScreen() {
       <LinearGradient
         style={[styles.container, {paddingTop: insets.top}]}
         colors={['#FFE3FC', '#FB96F1']}>
-        {data.length === 0 ? (
+        {localData.length === 0 ? (
           <View>
             <TouchableOpacity
               onPress={goBack}
@@ -92,7 +104,7 @@ export function BuyScreen() {
             )}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.flatlist}
-            data={data}
+            data={localData.rats}
             renderItem={renderItem}
           />
         )}
